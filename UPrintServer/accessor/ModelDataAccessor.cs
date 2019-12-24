@@ -1,11 +1,11 @@
 ﻿using System;
 using UPrint.database;
 using Npgsql;
-using UPrintServer;
+using UPrint;
 
 namespace UPrint.accessor
 {
-    class ModelDataAccessor
+    public class ModelDataAccessor
     {
         private static String selection = "SELECT * FROM model";
         private static String insertion = "INSERT INTO model (id, name, path) VALUES (@id, @name, @path)";

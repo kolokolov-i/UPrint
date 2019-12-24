@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UPrint.database.entity;
 
-namespace UPrintServer.converter
+namespace UPrint.converter
 {
     public class PrinterConverter
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using UPrint.database;
 using Npgsql;
-using UPrintServer;
+using UPrint;
 
 namespace UPrint.accessor
 {
-    class TaskDataAccessor
+    public class TaskDataAccessor
     {
         private static String selection = "SELECT * FROM task";
         private static String insertion = "INSERT INTO task (id, name, person, job, date_add, time_start, time_end, status, printer) VALUES (@id, @name, @person, @job, @date_add, @time_start, @time_end, @status, @printer)";

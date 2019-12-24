@@ -1,7 +1,5 @@
-﻿namespace UPrintServer
+﻿namespace UPrint
 {
-
-
     partial class UPrintDataSet
     {
     }

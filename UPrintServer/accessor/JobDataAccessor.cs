@@ -1,11 +1,12 @@
 ﻿using System;
 using UPrint.database;
 using Npgsql;
-using UPrintServer;
+using UPrint;
+using UPrint.accessor;
 
 namespace UPrint.accessor
 {
-    class JobDataAccessor
+    public class JobDataAccessor : IDataAccessor
     {
         private static String selection = "SELECT * FROM job";
         private static String insertion = "INSERT INTO job (id, name, date_add, description, person, model) VALUES (@id, @name, @date_add, @description, @person, @model)";

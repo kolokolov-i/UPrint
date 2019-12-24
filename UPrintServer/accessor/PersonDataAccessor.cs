@@ -1,11 +1,11 @@
 ﻿using System;
 using UPrint.database;
 using Npgsql;
-using UPrintServer;
+using UPrint;
 
 namespace UPrint.accessor
 {
-    class PersonDataAccessor
+    public class PersonDataAccessor
     {
 
         private static String selection = "SELECT * FROM person";

@@ -1,6 +1,6 @@
-﻿using UPrintServer.util;
+﻿using UPrint.util;
 
-namespace UPrintServer
+namespace UPrint
 {
     public class UPrintServer
     {

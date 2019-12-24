@@ -4,10 +4,10 @@ using UPrint.database.entity;
 using UPrint.accessor;
 using System.Collections.Generic;
 using System;
-using UPrintServer;
+using UPrint;
 using System.Data;
-using UPrintServer.converter;
-using UPrintServer.util;
+using UPrint.converter;
+using UPrint.util;
 using System.Diagnostics;
 using System.Linq;
 
@@ -17,6 +17,10 @@ namespace UPrint.test
     {
         UPrintDataSet dataSet;
         PrinterDataAccessor printerDA;
+        ModelDataAccessor modelDA;
+        JobDataAccessor jobDA;
+        PersonDataAccessor personDA;
+        TaskDataAccessor taskDA;
 
         [SetUp]
         public void Setup()
@@ -24,6 +28,10 @@ namespace UPrint.test
             DBUtil.Reset();
             dataSet = new UPrintDataSet();
             printerDA = new PrinterDataAccessor();
+            modelDA = new ModelDataAccessor();
+            jobDA = new JobDataAccessor();
+            personDA = new PersonDataAccessor();
+            taskDA = new TaskDataAccessor();
         }
 
         [Test]

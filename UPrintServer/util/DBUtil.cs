@@ -9,7 +9,7 @@ using UPrint.database;
 using Npgsql;
 using System.Diagnostics;
 
-namespace UPrintServer.util
+namespace UPrint.util
 {
     public class DBUtil
     {
