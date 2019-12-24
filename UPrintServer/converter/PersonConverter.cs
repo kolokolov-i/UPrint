@@ -3,13 +3,15 @@ using UPrint.database.entity;
 
 namespace UPrint.converter
 {
-    public class PrinterConverter
+    public class PersonConverter
     {
-        public static void toDataRow(DataRow row, Printer item)
+        public static void toDataRow(DataRow row, Person item)
         {
             row["id"] = item.Id;
+            row["login"] = item.Login;
+            row["password"] = item.Password;
             row["name"] = item.Name;
-            row["status"] = item.Status;
+            row["type"] = item.Type;
             row["active"] = item.Active;
         }
     }

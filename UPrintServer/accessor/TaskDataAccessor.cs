@@ -5,7 +5,7 @@ using UPrint;
 
 namespace UPrint.accessor
 {
-    public class TaskDataAccessor
+    public class TaskDataAccessor : IDataAccessor
     {
         private static String selection = "SELECT * FROM task";
         private static String insertion = "INSERT INTO task (id, name, person, job, date_add, time_start, time_end, status, printer) VALUES (@id, @name, @person, @job, @date_add, @time_start, @time_end, @status, @printer)";
@@ -25,6 +25,7 @@ namespace UPrint.accessor
 
         public void Update(AbstractConnection connection, AbstractTransaction transaction, UPrintDataSet dataSet)
         {
+            adapter = new NpgsqlDataAdapter();
             adapter.SelectCommand = new NpgsqlCommand(selection, connection.GetConnection(), transaction.GetTransaction());
             adapter.Fill(dataSet, "task");
             adapter.InsertCommand = new NpgsqlCommand(insertion, connection.GetConnection(), transaction.GetTransaction());

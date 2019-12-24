@@ -5,7 +5,7 @@ using UPrint;
 
 namespace UPrint.accessor
 {
-    public class ModelDataAccessor
+    public class ModelDataAccessor : IDataAccessor
     {
         private static String selection = "SELECT * FROM model";
         private static String insertion = "INSERT INTO model (id, name, path) VALUES (@id, @name, @path)";
@@ -25,6 +25,7 @@ namespace UPrint.accessor
 
         public void Update(AbstractConnection connection, AbstractTransaction transaction, UPrintDataSet dataSet)
         {
+            adapter = new NpgsqlDataAdapter();
             adapter.SelectCommand = new NpgsqlCommand(selection, connection.GetConnection(), transaction.GetTransaction());
             adapter.Fill(dataSet, "model");
             adapter.InsertCommand = new NpgsqlCommand(insertion, connection.GetConnection(), transaction.GetTransaction());

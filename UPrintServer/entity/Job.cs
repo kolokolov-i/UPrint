@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UPrint.database.entity
 {
-    class Job
+    public class Job
     {
         public int Id { get; set; }
         public String Name { get; set; }

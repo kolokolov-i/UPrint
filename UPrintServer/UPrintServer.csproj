@@ -60,7 +60,11 @@
     <Compile Include="accessor\PersonDataAccessor.cs" />
     <Compile Include="accessor\PrinterDataAccessor.cs" />
     <Compile Include="accessor\TaskDataAccessor.cs" />
+    <Compile Include="converter\JobConverter.cs" />
+    <Compile Include="converter\ModelConverter.cs" />
+    <Compile Include="converter\PersonConverter.cs" />
     <Compile Include="converter\PrinterConverter.cs" />
+    <Compile Include="converter\TaskConverter.cs" />
     <Compile Include="database\AbstractConnection.cs" />
     <Compile Include="database\AbstractTransaction.cs" />
     <Compile Include="database\DBFactory.cs" />

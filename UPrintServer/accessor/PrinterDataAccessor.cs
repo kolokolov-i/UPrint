@@ -5,7 +5,7 @@ using UPrint.database;
 
 namespace UPrint.accessor
 {
-    public class PrinterDataAccessor
+    public class PrinterDataAccessor : IDataAccessor
     {
 
         private static String selection = "SELECT * FROM printer";
@@ -26,6 +26,7 @@ namespace UPrint.accessor
 
         public void Update(AbstractConnection connection, AbstractTransaction transaction, UPrintDataSet dataSet)
         {
+            adapter = new NpgsqlDataAdapter();
             adapter.SelectCommand = new NpgsqlCommand(selection, connection.GetConnection(), transaction.GetTransaction());
             adapter.Fill(dataSet, "printer");
             adapter.InsertCommand = new NpgsqlCommand(insertion, connection.GetConnection(), transaction.GetTransaction());
