@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPrintServer", "UPrintServer\UPrintServer.csproj", "{97E9DE45-E187-4A1F-BE1F-6FCB17A2093C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "DBTest\Testing.csproj", "{AD5A4234-CCCA-4D6D-9992-D800F8936D41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97E9DE45-E187-4A1F-BE1F-6FCB17A2093C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E9DE45-E187-4A1F-BE1F-6FCB17A2093C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E9DE45-E187-4A1F-BE1F-6FCB17A2093C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E9DE45-E187-4A1F-BE1F-6FCB17A2093C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD5A4234-CCCA-4D6D-9992-D800F8936D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5A4234-CCCA-4D6D-9992-D800F8936D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5A4234-CCCA-4D6D-9992-D800F8936D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5A4234-CCCA-4D6D-9992-D800F8936D41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D174EE97-F37E-429F-B650-94C39B3E64FC}
+	EndGlobalSection
+EndGlobal
