@@ -54,7 +54,7 @@
     <Content Include="sql\reset.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="accessor\FileDataAccessor.cs" />
+    <Compile Include="accessor\ModelDataAccessor.cs" />
     <Compile Include="accessor\JobDataAccessor.cs" />
     <Compile Include="accessor\PersonDataAccessor.cs" />
     <Compile Include="accessor\PrinterDataAccessor.cs" />

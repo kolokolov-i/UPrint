@@ -11,13 +11,13 @@ namespace UPrint.database.entity
         public int Id { get; set; }
         public String Name { get; set; }
         public Person Person { get; set; }
-        public Job Job{ get; set; }
+        public int Job{ get; set; }
         public DateTime DateAdd { get; set; }
         public DateTime TimeStart { get; set; }
         public DateTime TimeEnd { get; set; }
         public String Status { get; set; }
-        public Printer Printer { get; set; }
-        public Task(int pId, String name, Person pPerson, Job pJob, DateTime pDateAdd, DateTime pTimeStart, DateTime pTimeEnd, String pStatus, Printer pPrinter)
+        public short Printer { get; set; }
+        public Task(int pId, String name, Person pPerson, int pJob, DateTime pDateAdd, DateTime pTimeStart, DateTime pTimeEnd, String pStatus, short pPrinter)
         {
             Id = pId;
             Name = name;
