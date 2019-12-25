@@ -36,25 +36,32 @@ namespace UPrint.util
 
         public static void RunScript(string script)
         {
-            AbstractConnection aConnection = null;
-            AbstractTransaction aTransaction = null;
-            try
-            {
-                aConnection = DBFactory.CreateConnection();
-                aConnection.Open();
-                aTransaction = aConnection.BeginTransaction();
-                NpgsqlCommand command = new NpgsqlCommand(script, aConnection.GetConnection(), aTransaction.GetTransaction());
-                command.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                aTransaction.Rollback();
-            }
-            finally
-            {
-                aConnection.Close();
-            }
+            string connectionString = "Host=127.0.0.1; Port=5432; Database=uprint; Username=uprint; Password=55555;";
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+            NpgsqlCommand command = new NpgsqlCommand(script, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+
+
+            //AbstractConnection aConnection = null;
+            //AbstractTransaction aTransaction = null;
+            //try
+            //{
+            //    aConnection = DBFactory.CreateConnection();
+            //    aConnection.Open();
+            //    aTransaction = aConnection.BeginTransaction();
+            //    command.ExecuteNonQuery();
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //    aTransaction.Rollback();
+            //}
+            //finally
+            //{
+            //    aConnection.Close();
+            //}
         }
     }
 }

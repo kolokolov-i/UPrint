@@ -42,27 +42,32 @@ namespace UPrint.test
             dataSet = new UPrintDataSet();
         }
 
+        [OneTimeTearDown]
+        public void Cleanup()
+        {
+            DBUtil.Clean();
+        }
+
         [Test]
         public void TestPrinter()
         {
             IDataAccessor da = printerDA;
             read(da);
-            DataTable table = dataSet.printer;
-            Assert.AreEqual(0, table.Rows.Count, "Table is empty");
-            DataRow newRow = table.NewRow();
+            Assert.AreEqual(0, dataSet.printer.Rows.Count, "Table is empty");
+            DataRow newRow = dataSet.printer.NewRow();
             PrinterConverter.toDataRow(newRow, new Printer("TestPrinter"));
-            table.Rows.Add(newRow);
+            dataSet.printer.Rows.Add(newRow);
             write(da);
-            Assert.AreEqual(1, table.Rows.Count, "Added one record");
-            DataRow firstRow = table.Rows[0];
+            read(da);
+            Assert.AreEqual(1, dataSet.printer.Rows.Count, "Added one record");
+            DataRow firstRow = dataSet.printer.Rows[0];
             Assert.AreEqual("TestPrinter", firstRow["name"], "Names are equals");
             firstRow["name"] = "RenameTest";
             write(da);
-            List<DataRow> findList = table.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
+            List<DataRow> findList = dataSet.printer.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
             Assert.AreEqual("RenameTest", findList[0]["name"], "Names are equals");
             firstRow.Delete();
             write(da);
-            dataSet = new UPrintDataSet();
             read(da);
             int count = dataSet.printer.Rows.Count;
             Assert.AreEqual(0, count);
@@ -73,22 +78,21 @@ namespace UPrint.test
         {
             IDataAccessor da = modelDA;
             read(da);
-            DataTable table = dataSet.model;
-            Assert.AreEqual(0, table.Rows.Count, "Table is empty");
-            DataRow newRow = table.NewRow();
+            //DataTable table = dataSet.model;
+            Assert.AreEqual(0, dataSet.model.Rows.Count, "Table is empty");
+            DataRow newRow = dataSet.model.NewRow();
             ModelConverter.toDataRow(newRow, new Model("TestModel"));
-            table.Rows.Add(newRow);
+            dataSet.model.Rows.Add(newRow);
             write(da);
-            Assert.AreEqual(1, table.Rows.Count, "Added one record");
-            DataRow firstRow = table.Rows[0];
+            Assert.AreEqual(1, dataSet.model.Rows.Count, "Added one record");
+            DataRow firstRow = dataSet.model.Rows[0];
             Assert.AreEqual("TestModel", firstRow["name"], "Names are equals");
             firstRow["name"] = "RenameTest";
             write(da);
-            List<DataRow> findList = table.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
+            List<DataRow> findList = dataSet.model.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
             Assert.AreEqual("RenameTest", findList[0]["name"], "Names are equals");
             firstRow.Delete();
             write(da);
-            dataSet = new UPrintDataSet();
             read(da);
             int count = dataSet.model.Rows.Count;
             Assert.AreEqual(0, count);
@@ -150,7 +154,6 @@ namespace UPrint.test
             Assert.AreEqual("RenameTest", findList[0]["name"], "Names are equals");
             firstRow.Delete();
             write(da);
-            dataSet = new UPrintDataSet();
             read(da);
             int count = dataSet.job.Rows.Count;
             Assert.AreEqual(0, count);
@@ -196,7 +199,6 @@ namespace UPrint.test
             Assert.AreEqual("RenameTest", findList[0]["name"], "Names are equals");
             firstRow.Delete();
             write(da);
-            dataSet = new UPrintDataSet();
             read(da);
             int count = dataSet.task.Rows.Count;
             Assert.AreEqual(0, count);
@@ -208,6 +210,7 @@ namespace UPrint.test
             bool exx = false;
             AbstractConnection connection = null;
             AbstractTransaction transaction = null;
+            dataSet = new UPrintDataSet();
             try
             {
                 connection = DBFactory.CreateConnection();
@@ -251,6 +254,21 @@ namespace UPrint.test
                 connection.Close();
             }
             Assert.IsFalse(exx, "Exceptions not throwed");
+        }
+
+        [Test]
+        public void TestClean()
+        {
+            IDataAccessor da = printerDA;
+            read(da);
+            DataTable table = dataSet.printer;
+            DataRow newRow = table.NewRow();
+            PrinterConverter.toDataRow(newRow, new Printer("printerForClean"));
+            table.Rows.Add(newRow);
+            write(da);
+            DBUtil.Clean();
+            read(da);
+            Assert.AreEqual(0, dataSet.printer.Rows.Count);
         }
     }
 }

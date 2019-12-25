@@ -38,7 +38,7 @@ namespace UPrint.accessor
             adapter.UpdateCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "path", ParameterName = "@path" });
             adapter.DeleteCommand = new NpgsqlCommand(deletion, connection.GetConnection(), transaction.GetTransaction());
             adapter.DeleteCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "id", ParameterName = "@id" });
-            NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
+            //NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
             adapter.Update(dataSet, "model");
         }
     }
