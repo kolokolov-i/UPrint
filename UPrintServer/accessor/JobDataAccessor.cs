@@ -1,8 +1,6 @@
 ﻿using System;
 using UPrint.database;
 using Npgsql;
-using UPrint;
-using UPrint.accessor;
 
 namespace UPrint.accessor
 {
@@ -27,8 +25,8 @@ namespace UPrint.accessor
         public void Update(AbstractConnection connection, AbstractTransaction transaction, UPrintDataSet dataSet)
         {
             adapter = new NpgsqlDataAdapter();
-            adapter.SelectCommand = new NpgsqlCommand(selection, connection.GetConnection(), transaction.GetTransaction());
-            adapter.Fill(dataSet, "job");
+            //adapter.SelectCommand = new NpgsqlCommand(selection, connection.GetConnection(), transaction.GetTransaction());
+            //adapter.Fill(dataSet, "job");
             adapter.InsertCommand = new NpgsqlCommand(insertion, connection.GetConnection(), transaction.GetTransaction());
             adapter.InsertCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "id", ParameterName = "@id" });
             adapter.InsertCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "name", ParameterName = "@name" });

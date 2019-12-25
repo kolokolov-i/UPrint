@@ -75,6 +75,7 @@
     <Compile Include="entity\Person.cs" />
     <Compile Include="entity\Printer.cs" />
     <Compile Include="entity\Task.cs" />
+    <Compile Include="logic\BusinessLogic.cs" />
     <Compile Include="UPrintDataSet.cs">
       <DependentUpon>UPrintDataSet.xsd</DependentUpon>
     </Compile>

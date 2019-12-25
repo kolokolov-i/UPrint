@@ -1,14 +1,12 @@
 using NUnit.Framework;
 using UPrint.database;
-using UPrint.database.entity;
+using UPrint.entity;
 using UPrint.accessor;
 using System.Collections.Generic;
 using System;
-using UPrint;
 using System.Data;
 using UPrint.converter;
 using UPrint.util;
-using System.Diagnostics;
 using System.Linq;
 
 namespace UPrint.test
@@ -57,6 +55,9 @@ namespace UPrint.test
             DataRow newRow = dataSet.printer.NewRow();
             PrinterConverter.toDataRow(newRow, new Printer("TestPrinter"));
             dataSet.printer.Rows.Add(newRow);
+            DataRow newRow2 = dataSet.printer.NewRow();
+            PrinterConverter.toDataRow(newRow2, new Printer("TestPrinter2"));
+            dataSet.printer.Rows.Add(newRow2);
             write(da);
             read(da);
             Assert.AreEqual(1, dataSet.printer.Rows.Count, "Added one record");
@@ -129,8 +130,7 @@ namespace UPrint.test
         {
             IDataAccessor da = jobDA;
             read(da);
-            DataTable table = dataSet.job;
-            Assert.AreEqual(0, table.Rows.Count, "Table is empty");
+            Assert.AreEqual(0, dataSet.job.Rows.Count, "Table is empty");
             DataRow personRow = dataSet.person.NewRow();
             Person person = new Person("person", "", Person.PersonType.ADMIN);
             PersonConverter.toDataRow(personRow, person);
@@ -141,17 +141,21 @@ namespace UPrint.test
             ModelConverter.toDataRow(modelRow, model);
             dataSet.model.Rows.Add(modelRow);
             write(modelDA);
-            DataRow newRow = table.NewRow();
+            read(modelDA);
+            DataRow newRow = dataSet.job.NewRow();
             JobConverter.toDataRow(newRow, new Job(0, "TestJob", DateTime.Now, "test", 0, 0));
-            table.Rows.Add(newRow);
+            dataSet.job.Rows.Add(newRow);
             write(da);
-            Assert.AreEqual(1, table.Rows.Count, "Added one record");
-            DataRow firstRow = table.Rows[0];
+            read(da);
+            Assert.AreEqual(1, dataSet.job.Rows.Count, "Added one record");
+            DataRow firstRow = dataSet.job.Rows[0];
             Assert.AreEqual("TestJob", firstRow["name"], "Names are equals");
             firstRow["name"] = "RenameTest";
             write(da);
-            List<DataRow> findList = table.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
+            read(da);
+            List<DataRow> findList = dataSet.job.Select("name = 'RenameTest'").OfType<DataRow>().ToList();
             Assert.AreEqual("RenameTest", findList[0]["name"], "Names are equals");
+            firstRow = dataSet.job.Rows[0];
             firstRow.Delete();
             write(da);
             read(da);

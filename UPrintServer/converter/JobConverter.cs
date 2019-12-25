@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using UPrint.database.entity;
+using UPrint.entity;
 
 namespace UPrint.converter
 {

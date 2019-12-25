@@ -1,6 +1,5 @@
 ﻿using System;
 using Npgsql;
-using UPrint;
 using UPrint.database;
 
 namespace UPrint.accessor
