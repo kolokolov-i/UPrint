@@ -6,6 +6,7 @@ namespace UPrint.accessor
 {
     public class ModelDataAccessor : IDataAccessor
     {
+
         private static String selection = "SELECT * FROM model";
         private static String insertion = "INSERT INTO model (id, name, path) VALUES (@id, @name, @path)";
         private static String updation = "UPDATE model SET name = @name, path = @path WHERE id = @id";
@@ -37,7 +38,7 @@ namespace UPrint.accessor
             adapter.UpdateCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "path", ParameterName = "@path" });
             adapter.DeleteCommand = new NpgsqlCommand(deletion, connection.GetConnection(), transaction.GetTransaction());
             adapter.DeleteCommand.Parameters.Add(new NpgsqlParameter() { SourceColumn = "id", ParameterName = "@id" });
-            //NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
+            NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
             adapter.Update(dataSet, "model");
         }
     }

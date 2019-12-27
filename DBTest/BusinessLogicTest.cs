@@ -32,6 +32,7 @@ namespace UPrint.test
             taskDA = new TaskDataAccessor();
             logic = new BusinessLogic();
         }
+
         [Test]
         public void TestGetEmptyPrinters()
         {
@@ -50,6 +51,27 @@ namespace UPrint.test
 
             logic.init();
             System.Collections.Generic.List<Printer> list = logic.GetEmptyPrinters();
+            Assert.AreEqual(2, list.Count);
+        }
+
+        [Test]
+        public void TestGetModelByName()
+        {
+            read(modelDA);
+            System.Data.DataRow newRow;
+            newRow = dataSet.model.NewRow();
+            ModelConverter.toDataRow(newRow, new Model(1, "Cat", "cat.stl"));
+            dataSet.model.Rows.Add(newRow);
+            newRow = dataSet.model.NewRow();
+            ModelConverter.toDataRow(newRow, new Model(2, "Car", "car.stl"));
+            dataSet.model.Rows.Add(newRow);
+            newRow = dataSet.model.NewRow();
+            ModelConverter.toDataRow(newRow, new Model(3, "Dog", "dog.stl"));
+            dataSet.model.Rows.Add(newRow);
+            write(modelDA);
+
+            logic.init();
+            System.Collections.Generic.List<Model> list = logic.GetModelByName("ca");
             Assert.AreEqual(2, list.Count);
         }
         private void read(IDataAccessor da)

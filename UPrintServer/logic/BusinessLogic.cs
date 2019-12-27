@@ -36,9 +36,12 @@ namespace UPrint.logic
                 .Where(t => t.Status.Equals(Printer.PrinterStatus.EMPTY)).ToList();
         }
 
-        public List<Task> GetWorkingTasks()
+        public List<Model> GetModelByName(string term)
         {
-            return null;
+            read(modelDA);
+            return dataSet.model.AsEnumerable()
+                .Select(t => new Model(t.Field<int>(0), t.Field<string>(1), t.Field<string>(2)))
+                .Where(t => t.Name.ToLower().StartsWith(term.ToLower())).ToList();
         }
 
         public List<Task> GetTaskForJob(Job job)
@@ -46,12 +49,7 @@ namespace UPrint.logic
             return null;
         }
 
-        public void readJob()
-        {
-
-        }
-
-        public void writeJob()
+        public void readAllJob()
         {
 
         }
