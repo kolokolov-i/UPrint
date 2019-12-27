@@ -9,6 +9,13 @@ namespace UPrint.entity
         public String Status { get; set; }
         public bool Active { get; set; }
 
+        public Printer()
+        {
+            Id = 0;
+            Name = "";
+            Status = PrinterStatus.EMPTY;
+            Active = true;
+        }
         public Printer(short pId, String pName, String pStatus, bool pA)
         {
             Id = pId;

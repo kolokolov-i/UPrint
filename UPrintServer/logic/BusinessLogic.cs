@@ -11,7 +11,7 @@ namespace UPrint.logic
 {
     public class BusinessLogic
     {
-        UPrintDataSet dataSet;
+        public UPrintDataSet dataSet;
         PrinterDataAccessor printerDA;
         ModelDataAccessor modelDA;
         JobDataAccessor jobDA;
