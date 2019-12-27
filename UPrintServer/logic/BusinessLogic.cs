@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UPrint.accessor;
 using UPrint.converter;
+using UPrint.database;
 using UPrint.entity;
 
 namespace UPrint.logic
 {
-    class BusinessLogic
+    public class BusinessLogic
     {
         UPrintDataSet dataSet;
         PrinterDataAccessor printerDA;
@@ -25,34 +27,13 @@ namespace UPrint.logic
             taskDA = new TaskDataAccessor();
         }
 
-        public Job CreateJob(Person person, string modelName)
-        {
-            //readModel();
-            Model model = new Model(0, modelName, "model/" + modelName);
-            DataRow newRowModel = dataSet.model.NewRow();
-            ModelConverter.toDataRow(newRowModel, model);
-            dataSet.model.Rows.Add(newRowModel);
-            //writeModel();
-            DataRow dataRow = dataSet.model.Select("name = " + modelName)[0];
-            //dataRow["Id"];
-            readJob();
-            DataRow newRowJob = dataSet.job.NewRow();
-            Job newJob = new Job(0, "Print" + modelName, DateTime.Now, "", person.Id, 0);
-            JobConverter.toDataRow(newRowJob, newJob);
-            dataSet.job.Rows.Add(newRowJob);
-            writeJob();
-            readJob();
-            return null;
-        }
-
-        public Task LaunchJob(Person person, Printer printer)
-        {
-            return null;
-        }
-
         public List<Printer> GetEmptyPrinters()
         {
-            return null;
+            read(printerDA);
+            return dataSet.printer.AsEnumerable()
+                .Select(t => new Printer(
+                    t.Field<short>(0), t.Field<string>(1), t.Field<string>(2), t.Field<bool>(3)))
+                .Where(t => t.Status.Equals(Printer.PrinterStatus.EMPTY)).ToList();
         }
 
         public List<Task> GetWorkingTasks()
@@ -65,14 +46,37 @@ namespace UPrint.logic
             return null;
         }
 
-        private void readJob()
+        public void readJob()
         {
 
         }
 
-        private void writeJob()
+        public void writeJob()
         {
 
+        }
+
+        private void read(IDataAccessor da)
+        {
+            AbstractConnection connection = null;
+            AbstractTransaction transaction = null;
+            dataSet = new UPrintDataSet();
+            try
+            {
+                connection = DBFactory.CreateConnection();
+                connection.Open();
+                transaction = connection.BeginTransaction();
+                da.Read(connection, transaction, dataSet);
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
